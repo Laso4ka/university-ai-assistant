@@ -1,0 +1,279 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-departments
+      author: denys
+      changes:
+        - createTable:
+            tableName: departments
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: VARCHAR(1000)
+
+  - changeSet:
+      id: 002-create-degrees
+      author: denys
+      changes:
+        - createTable:
+            tableName: degrees
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: 003-create-lecturers
+      author: denys
+      changes:
+        - createTable:
+            tableName: lecturers
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: salary
+                  type: NUMERIC(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: degree_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_lecturers_degree
+                    references: degrees(id)
+
+        - createIndex:
+            tableName: lecturers
+            indexName: idx_lecturers_email
+            columns:
+              - column:
+                  name: email
+
+  - changeSet:
+      id: 004-create-students
+      author: denys
+      changes:
+        - createTable:
+            tableName: students
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: department_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_students_department
+                    references: departments(id)
+
+        - createIndex:
+            tableName: students
+            indexName: idx_students_email
+            columns:
+              - column:
+                  name: email
+
+  - changeSet:
+      id: 005-create-courses
+      author: denys
+      changes:
+        - createTable:
+            tableName: courses
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: credits
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: department_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_courses_department
+                    references: departments(id)
+
+        - createIndex:
+            tableName: courses
+            indexName: idx_courses_name
+            columns:
+              - column:
+                  name: name
+
+  - changeSet:
+      id: 006-create-lecturer-departments
+      author: denys
+      changes:
+        - createTable:
+            tableName: lecturer_departments
+            columns:
+              - column:
+                  name: lecturer_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_lecturer_departments_lecturer
+                    references: lecturers(id)
+              - column:
+                  name: department_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_lecturer_departments_department
+                    references: departments(id)
+
+        - addPrimaryKey:
+            tableName: lecturer_departments
+            columnNames: lecturer_id, department_id
+            constraintName: pk_lecturer_departments
+
+  - changeSet:
+      id: 007-create-course-lecturers
+      author: denys
+      changes:
+        - createTable:
+            tableName: course_lecturers
+            columns:
+              - column:
+                  name: course_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_course_lecturers_course
+                    references: courses(id)
+              - column:
+                  name: lecturer_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_course_lecturers_lecturer
+                    references: lecturers(id)
+
+        - addPrimaryKey:
+            tableName: course_lecturers
+            columnNames: course_id, lecturer_id
+            constraintName: pk_course_lecturers
+
+  - changeSet:
+      id: 008-create-enrollments
+      author: denys
+      changes:
+        - createTable:
+            tableName: enrollments
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: student_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_enrollments_student
+                    references: students(id)
+              - column:
+                  name: course_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_enrollments_course
+                    references: courses(id)
+              - column:
+                  name: grade
+                  type: NUMERIC(4,2)
+                  constraints:
+                    nullable: true
+
+        - addUniqueConstraint:
+            tableName: enrollments
+            columnNames: student_id, course_id
+            constraintName: uq_enrollments_student_course
+
+        - createIndex:
+            tableName: enrollments
+            indexName: idx_enrollments_course_id
+            columns:
+              - column:
+                  name: course_id

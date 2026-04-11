@@ -1,0 +1,240 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-seed-degrees
+      author: denys
+      changes:
+        - insert:
+            tableName: degrees
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: ASSISTANT }
+        - insert:
+            tableName: degrees
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: ASSOCIATE_PROFESSOR }
+        - insert:
+            tableName: degrees
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: name, value: PROFESSOR }
+
+  - changeSet:
+      id: 010-seed-departments
+      author: denys
+      changes:
+        - insert:
+            tableName: departments
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: Computer Science }
+              - column: { name: description, value: Computer Science Department }
+        - insert:
+            tableName: departments
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: Mathematics }
+              - column: { name: description, value: Mathematics Department }
+        - insert:
+            tableName: departments
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: name, value: Physics }
+              - column: { name: description, value: Physics Department }
+
+  - changeSet:
+      id: 011-seed-lecturers
+      author: denys
+      changes:
+        - insert:
+            tableName: lecturers
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: first_name, value: John }
+              - column: { name: last_name, value: Smith }
+              - column: { name: email, value: john.smith@university.com }
+              - column: { name: salary, valueNumeric: 5000.00 }
+              - column: { name: degree_id, valueNumeric: 3 }
+        - insert:
+            tableName: lecturers
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: first_name, value: Emma }
+              - column: { name: last_name, value: Brown }
+              - column: { name: email, value: emma.brown@university.com }
+              - column: { name: salary, valueNumeric: 4200.00 }
+              - column: { name: degree_id, valueNumeric: 2 }
+        - insert:
+            tableName: lecturers
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: first_name, value: Michael }
+              - column: { name: last_name, value: Johnson }
+              - column: { name: email, value: michael.johnson@university.com }
+              - column: { name: salary, valueNumeric: 4500.00 }
+              - column: { name: degree_id, valueNumeric: 2 }
+
+  - changeSet:
+      id: 012-seed-students
+      author: denys
+      changes:
+        - insert:
+            tableName: students
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: first_name, value: Alice }
+              - column: { name: last_name, value: Walker }
+              - column: { name: email, value: alice.walker@student.com }
+              - column: { name: department_id, valueNumeric: 1 }
+        - insert:
+            tableName: students
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: first_name, value: Bob }
+              - column: { name: last_name, value: Taylor }
+              - column: { name: email, value: bob.taylor@student.com }
+              - column: { name: department_id, valueNumeric: 1 }
+        - insert:
+            tableName: students
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: first_name, value: Anna }
+              - column: { name: last_name, value: Wilson }
+              - column: { name: email, value: anna.wilson@student.com }
+              - column: { name: department_id, valueNumeric: 2 }
+        - insert:
+            tableName: students
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: first_name, value: David }
+              - column: { name: last_name, value: Moore }
+              - column: { name: email, value: david.moore@student.com }
+              - column: { name: department_id, valueNumeric: 3 }
+
+  - changeSet:
+      id: 013-seed-courses
+      author: denys
+      changes:
+        - insert:
+            tableName: courses
+            columns:
+              - column: { name: id, valueNumeric: 1 }
+              - column: { name: name, value: Algorithms }
+              - column: { name: code, value: CS101 }
+              - column: { name: credits, valueNumeric: 5 }
+              - column: { name: department_id, valueNumeric: 1 }
+        - insert:
+            tableName: courses
+            columns:
+              - column: { name: id, valueNumeric: 2 }
+              - column: { name: name, value: Databases }
+              - column: { name: code, value: CS102 }
+              - column: { name: credits, valueNumeric: 4 }
+              - column: { name: department_id, valueNumeric: 1 }
+        - insert:
+            tableName: courses
+            columns:
+              - column: { name: id, valueNumeric: 3 }
+              - column: { name: name, value: Linear Algebra }
+              - column: { name: code, value: MATH101 }
+              - column: { name: credits, valueNumeric: 5 }
+              - column: { name: department_id, valueNumeric: 2 }
+        - insert:
+            tableName: courses
+            columns:
+              - column: { name: id, valueNumeric: 4 }
+              - column: { name: name, value: Quantum Mechanics }
+              - column: { name: code, value: PHYS201 }
+              - column: { name: credits, valueNumeric: 6 }
+              - column: { name: department_id, valueNumeric: 3 }
+
+  - changeSet:
+      id: 014-seed-lecturer-departments
+      author: denys
+      changes:
+        - insert:
+            tableName: lecturer_departments
+            columns:
+              - column: { name: lecturer_id, valueNumeric: 1 }
+              - column: { name: department_id, valueNumeric: 1 }
+        - insert:
+            tableName: lecturer_departments
+            columns:
+              - column: { name: lecturer_id, valueNumeric: 1 }
+              - column: { name: department_id, valueNumeric: 2 }
+        - insert:
+            tableName: lecturer_departments
+            columns:
+              - column: { name: lecturer_id, valueNumeric: 2 }
+              - column: { name: department_id, valueNumeric: 1 }
+        - insert:
+            tableName: lecturer_departments
+            columns:
+              - column: { name: lecturer_id, valueNumeric: 3 }
+              - column: { name: department_id, valueNumeric: 3 }
+
+  - changeSet:
+      id: 015-seed-course-lecturers
+      author: denys
+      changes:
+        - insert:
+            tableName: course_lecturers
+            columns:
+              - column: { name: course_id, valueNumeric: 1 }
+              - column: { name: lecturer_id, valueNumeric: 1 }
+        - insert:
+            tableName: course_lecturers
+            columns:
+              - column: { name: course_id, valueNumeric: 2 }
+              - column: { name: lecturer_id, valueNumeric: 2 }
+        - insert:
+            tableName: course_lecturers
+            columns:
+              - column: { name: course_id, valueNumeric: 3 }
+              - column: { name: lecturer_id, valueNumeric: 1 }
+        - insert:
+            tableName: course_lecturers
+            columns:
+              - column: { name: course_id, valueNumeric: 4 }
+              - column: { name: lecturer_id, valueNumeric: 3 }
+
+  - changeSet:
+      id: 016-seed-enrollments
+      author: denys
+      changes:
+        - insert:
+            tableName: enrollments
+            columns:
+              - column: { name: student_id, valueNumeric: 1 }
+              - column: { name: course_id, valueNumeric: 1 }
+              - column: { name: grade, valueNumeric: 95.0 }
+        - insert:
+            tableName: enrollments
+            columns:
+              - column: { name: student_id, valueNumeric: 1 }
+              - column: { name: course_id, valueNumeric: 2 }
+              - column: { name: grade, valueNumeric: 88.0 }
+        - insert:
+            tableName: enrollments
+            columns:
+              - column: { name: student_id, valueNumeric: 2 }
+              - column: { name: course_id, valueNumeric: 1 }
+              - column: { name: grade, valueNumeric: 78.0 }
+        - insert:
+            tableName: enrollments
+            columns:
+              - column: { name: student_id, valueNumeric: 2 }
+              - column: { name: course_id, valueNumeric: 2 }
+              - column: { name: grade, valueNumeric: 91.0 }
+        - insert:
+            tableName: enrollments
+            columns:
+              - column: { name: student_id, valueNumeric: 3 }
+              - column: { name: course_id, valueNumeric: 3 }
+              - column: { name: grade, valueNumeric: 97.0 }
+        - insert:
+            tableName: enrollments
+            columns:
+              - column: { name: student_id, valueNumeric: 4 }
+              - column: { name: course_id, valueNumeric: 4 }
+              - column: { name: grade, valueNumeric: 89.0 }
